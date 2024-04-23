@@ -3,6 +3,7 @@ package ru.cashflow.cashflow.data.entities;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,5 +27,8 @@ public class Category {
     public enum Type {
     INPUT, OUTPUT
     }
+
+    @ManyToOne
+    private final UserGroup group;
 
 }
