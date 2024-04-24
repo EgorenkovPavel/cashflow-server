@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @Entity(name = "operations")
 @AllArgsConstructor()
-public class Operation {
+public class OperationDbo {
     
     @Id
     private final Long id;
@@ -33,17 +33,20 @@ public class Operation {
     }
 
     @ManyToOne(optional = false)
-    private final Account account;
+    private final AccountDbo account;
 
     @ManyToOne(optional = true)
-    private final Category category;
+    private final CategoryDbo category;
 
     @ManyToOne(optional = true)
-    private final Account recAccount;
+    private final AccountDbo recAccount;
 
     @Column(nullable = false)
     private final int sum;
 
     @ManyToOne
-    private final User user;
+    private final UserDbo user;
+
+    @ManyToOne
+    private final UserGroupDbo group;
 }

@@ -2,33 +2,34 @@ package ru.cashflow.cashflow.data.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
 
 @Data
-@Entity(name = "categories")
+@Entity(name = "accounts")
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
-public class Category {
+public class AccountDbo {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
 
-    @Column
+    @Column(nullable = false)
     private final String name;
 
-    @Column
-    private final Type type;
-    
-    public enum Type {
-    INPUT, OUTPUT
-    }
+    @Column(nullable = false)
+    private final boolean isDebt;
 
     @ManyToOne
-    private final UserGroup group;
+    private final UserDbo user;
 
+    @ManyToOne
+    private final UserGroupDbo userGroup;
 }

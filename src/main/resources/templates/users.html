@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Список пользователей</title>
+</head>
+<body>
+    <h1>Список пользователей</h1>
+
+    <!-- Форма для добавления нового пользователя -->
+    <form action="/users/add" method="post" th:object="${userForm}">
+        <label for="name">Имя:</label>
+        <input type="text" id="name" th:field="*{name}" required>
+        
+        <label for="email">Email:</label>
+        <input type="email" id="email" th:field="*{email}" required>
+        
+        <!-- Выпадающий список для выбора UserGroup -->
+        <label for="group">Группа:</label>
+        <select id="group" th:field="*{group}">
+            <option value="" disabled selected>Выберите группу</option>
+            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.name}"></option>
+        </select>
+        
+        <button type="submit">Добавить</button>
+    </form>
+
+    <!-- Ссылка на создание новой группы -->
+    <a href="/user-groups/new">Добавить новую группу</a>
+
+    <!-- Список пользователей, сгруппированный по UserGroup -->
+    <h2>Пользователи по группам</h2>
+
+    <div th:each="entry : ${groupedUsers.entrySet()}">
+        <a th:href="@{/group/{groupId}(groupId=${entry.key.id})}">
+            <h3 th:text="${entry.key.name}"></h3>
+        </a>
+        <table border="1">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Имя</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user : ${entry.value}">
+                    <td th:text="${user.id}"></td>
+                    <td th:text="${user.name}"></td>
+                    <td th:text="${user.email}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</body>
+</html>

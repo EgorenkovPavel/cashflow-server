@@ -14,10 +14,10 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Data
-@Entity(name = "balances")
+@Entity(name = "cashflows")
 @NoArgsConstructor(access = AccessLevel.PRIVATE, force = true)
 @AllArgsConstructor
-public class Balance {
+public class CashflowDbo {
     
     @Id
     private final Long id;
@@ -26,12 +26,14 @@ public class Balance {
     private final Date date;
 
     @ManyToOne(optional = false)
-    private final Operation operation;
+    private final OperationDbo operation;
 
     @ManyToOne(optional = false)
-    private final Account account;
+    private final AccountDbo account;
+
+    @ManyToOne(optional = false)
+    private final CategoryDbo category;
 
     @Column(nullable = false)
     private final int sum;
-
 }
