@@ -10,4 +10,6 @@ import java.util.List;
 
 public interface AccountRepository extends JpaRepository<AccountDbo, Long>{
     public List<AccountDbo> findByUserGroup(UserGroupDbo userGroup);
+
+    public List<AccountDbo> findByUserGroupAndIsDebt(UserGroupDbo userGroup, boolean isDebt);
 }

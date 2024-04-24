@@ -29,6 +29,6 @@ public class CategoryDbo {
     }
 
     @ManyToOne
-    private final UserGroupDbo group;
+    private final UserGroupDbo userGroup;
 
 }

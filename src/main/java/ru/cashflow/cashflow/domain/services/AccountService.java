@@ -38,4 +38,16 @@ public class AccountService {
         .toList();
     }
 
+    public List<Account> findAccountsByUserGroup(UserGroup group, boolean isDebt){
+        return accountRepository.findByUserGroupAndIsDebt(groupMapper.toDBO(group), isDebt)
+        .stream()
+        .map(account -> accountMapper.toModel(account))
+        .toList();
+    }
+
+
+    public void saveAccount(Account account){
+        accountRepository.save(accountMapper.toDBO(account));
+    }
+
 }

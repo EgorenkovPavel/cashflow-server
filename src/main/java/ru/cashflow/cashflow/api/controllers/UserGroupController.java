@@ -1,7 +1,11 @@
 package ru.cashflow.cashflow.api.controllers;
 
+import ru.cashflow.cashflow.domain.models.Account;
+import ru.cashflow.cashflow.domain.models.Category;
 import ru.cashflow.cashflow.domain.models.User;
 import ru.cashflow.cashflow.domain.models.UserGroup;
+import ru.cashflow.cashflow.domain.services.AccountService;
+import ru.cashflow.cashflow.domain.services.CategoryService;
 import ru.cashflow.cashflow.domain.services.UserService;
 
 import java.util.List;
@@ -18,9 +22,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class UserGroupController {
 
     private final UserService userService;
+    private final AccountService accountService;
+    private final CategoryService categoryService;
 
-    public UserGroupController(UserService userService) {
+    public UserGroupController(
+        UserService userService, 
+        AccountService accountService, 
+        CategoryService categoryService) {
         this.userService = userService;
+        this.accountService = accountService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping("/user-groups")
@@ -46,9 +57,15 @@ public class UserGroupController {
     public String getGroup(@PathVariable("groupId") Long groupId, Model model) {
         final UserGroup group = userService.findUserGroupById(groupId).orElse(null);
         final List<User> users = userService.findUsersByGroup(group);
+        final List<Account> accounts = accountService.findAccountsByUserGroup(group, false);
+        final List<Account> debts = accountService.findAccountsByUserGroup(group, true);
+        final List<Category> categories = categoryService.findCategoriesByUserGroup(group);
 
         model.addAttribute("group", group); 
         model.addAttribute("users", users); 
+        model.addAttribute("accounts", accounts); 
+        model.addAttribute("debts", debts); 
+        model.addAttribute("categories", categories); 
 
         return "user_group";
     }

@@ -24,7 +24,7 @@ public class AccountMapper implements DBOMapper<Account, AccountDbo> {
             model.getId(),
             model.getName(),
             model.isDebt(),
-            userMapper.toDBO(model.getOwner()),
+            userMapper.toDBO(model.getUser()),
             groupMapper.toDBO(model.getUserGroup())
         );
     }

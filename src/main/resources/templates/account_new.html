@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить новый счет</title>
+</head>
+<body>
+    <h1>Добавить новый счет</h1>
+
+    <form action="/accounts/add" method="post" th:object="${accountForm}">
+        <!-- Имя группы -->
+        <label for="accountName">Имя счета:</label>
+        <input type="text" id="accountName" th:field="*{name}" required>
+        <br/>
+
+        <label for="debt">Это долг</label>
+        <input type="checkbox" id="debt" th:field="*{debt}" />
+        <br/>
+
+        <label th:text="'Имя группы ' + ${group.name}">Имя группы:</label>
+        <input type="hidden" th:field="*{userGroup.id}" th:value="${group.id}" />
+        <br/>
+
+        <label for="user">Пользователь:</label>
+        <select id="user" th:field="*{user}">
+            <option value="" disabled selected>Выберите пользователя</option>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+        </select>
+        <br/>
+
+        <button type="submit">Добавить</button>
+    </form>
+
+    <a href="#" onclick="window.history.back(); return false;">Назад</a>
+</body>
+</html>

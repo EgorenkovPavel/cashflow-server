@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+import ru.cashflow.cashflow.data.repos.UserByIdConverter;
 import ru.cashflow.cashflow.data.repos.UserGroupByIdConverter;
 import ru.cashflow.cashflow.domain.services.UserService;
 
@@ -18,6 +19,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(@SuppressWarnings("null") FormatterRegistry registry) {
-        registry.addConverter(new UserGroupByIdConverter(userService));  // Регистрация конвертера
+        registry.addConverter(new UserGroupByIdConverter(userService)); 
+        registry.addConverter(new UserByIdConverter(userService));
     }
 }

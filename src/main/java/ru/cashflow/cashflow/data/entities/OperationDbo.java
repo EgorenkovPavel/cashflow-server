@@ -48,5 +48,5 @@ public class OperationDbo {
     private final UserDbo user;
 
     @ManyToOne
-    private final UserGroupDbo group;
+    private final UserGroupDbo userGroup;
 }

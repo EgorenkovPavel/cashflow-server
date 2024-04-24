@@ -64,4 +64,7 @@ public class UserService {
         return userGroupRepository.findById(id).map(group -> groupMapper.toModel(group));
     }
 
+    public Optional<User> findUserById(Long id){
+        return userRepository.findById(id).map(user -> userMapper.toModel(user));
+    }
 }

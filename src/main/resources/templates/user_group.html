@@ -29,6 +29,8 @@
 
     <h3>Счета</h3>
 
+    <a th:href="@{/accounts/new(groupId=${group.id})}">Добавить новый счет</a>
+    
     <table border="1">
         <thead>
             <tr>
@@ -41,7 +43,49 @@
             <tr th:each="account : ${accounts}">
                 <td th:text="${account.id}"></td>
                 <td th:text="${account.name}"></td>
-                <td th:text="${account.owner.name}"></td>
+                <td th:text="${account.user.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Долги</h3>
+
+    <a th:href="@{/accounts/new(groupId=${group.id})}">Добавить новый счет</a>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Пользователь</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="debt : ${debts}">
+                <td th:text="${debt.id}"></td>
+                <td th:text="${debt.name}"></td>
+                <td th:text="${debt.user.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Категории</h3>
+
+    <a th:href="@{/categories/new(groupId=${group.id})}">Добавить новую категорию</a>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Имя</th>
+                <th>Тип</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="category : ${categories}">
+                <td th:text="${category.id}"></td>
+                <td th:text="${category.name}"></td>
+                <td th:text="${category.type}"></td>
             </tr>
         </tbody>
     </table>
