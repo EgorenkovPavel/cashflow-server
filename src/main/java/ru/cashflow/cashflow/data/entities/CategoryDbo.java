@@ -2,6 +2,8 @@ package ru.cashflow.cashflow.data.entities;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
@@ -16,12 +18,13 @@ import lombok.AccessLevel;
 public class CategoryDbo {
     
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private final Long id;
 
-    @Column
+    @Column(nullable = false)
     private final String name;
 
-    @Column
+    @Column(nullable = false)
     private final Type type;
     
     public enum Type {

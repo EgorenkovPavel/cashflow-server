@@ -20,7 +20,7 @@ public class CategoryMapper implements DBOMapper<Category, CategoryDbo> {
             model.getId(), 
             model.getName(), 
             toDBOType(model.getType()), 
-            groupMapper.toDBO(model.getGroup()));
+            groupMapper.toDBO(model.getUserGroup()));
     }
 
     @Override

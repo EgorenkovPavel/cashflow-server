@@ -33,4 +33,8 @@ public class CategoryService {
         .toList();
     }
 
+    public void saveCategory(Category category){
+        categoryRepository.save(categoryMapper.toDBO(category));
+    }
+
 }

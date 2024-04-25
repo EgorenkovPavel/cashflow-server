@@ -12,7 +12,7 @@ public class Category {
     private Long id;
     private String name;
     private Type type;
-    private UserGroup group;
+    private UserGroup userGroup;
 
     public enum Type {
         INPUT, OUTPUT

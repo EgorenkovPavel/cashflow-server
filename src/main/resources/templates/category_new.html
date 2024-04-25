@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить новую категорию</title>
+</head>
+<body>
+    <h1>Добавить новую категорию</h1>
+
+    <form action="/categories/add" method="post" th:object="${categoryForm}">
+        <!-- Имя группы -->
+        <label for="categoryName">Имя счета:</label>
+        <input type="text" id="categoryName" th:field="*{name}" required>
+        <br/>
+
+        <label>
+            <input type="radio" name="type" value="INPUT" th:field="*{type}">
+            Доход
+        </label>
+        <label>
+            <input type="radio" name="type" value="OUTPUT" th:field="*{type}">
+            Расход
+        </label>
+        <br/>
+        
+        <label th:text="'Имя группы ' + ${group.name}">Имя группы:</label>
+        <input type="hidden" th:field="*{userGroup.id}" th:value="${group.id}" />
+        <br/>
+
+        <button type="submit">Добавить</button>
+    </form>
+
+    <a href="#" onclick="window.history.back(); return false;">Назад</a>
+</body>
+</html>
