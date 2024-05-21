@@ -2,10 +2,12 @@ package ru.cashflow.cashflow.api.controllers;
 
 import ru.cashflow.cashflow.domain.models.Account;
 import ru.cashflow.cashflow.domain.models.Category;
+import ru.cashflow.cashflow.domain.models.Operation;
 import ru.cashflow.cashflow.domain.models.User;
 import ru.cashflow.cashflow.domain.models.UserGroup;
 import ru.cashflow.cashflow.domain.services.AccountService;
 import ru.cashflow.cashflow.domain.services.CategoryService;
+import ru.cashflow.cashflow.domain.services.OperationService;
 import ru.cashflow.cashflow.domain.services.UserService;
 
 import java.util.List;
@@ -24,14 +26,17 @@ public class UserGroupController {
     private final UserService userService;
     private final AccountService accountService;
     private final CategoryService categoryService;
+    private final OperationService operationsService;
 
     public UserGroupController(
         UserService userService, 
         AccountService accountService, 
-        CategoryService categoryService) {
+        CategoryService categoryService, 
+        OperationService operationsService) {
         this.userService = userService;
         this.accountService = accountService;
         this.categoryService = categoryService;
+        this.operationsService = operationsService;
     }
 
     @GetMapping("/user-groups")
@@ -60,12 +65,14 @@ public class UserGroupController {
         final List<Account> accounts = accountService.findAccountsByUserGroup(group, false);
         final List<Account> debts = accountService.findAccountsByUserGroup(group, true);
         final List<Category> categories = categoryService.findCategoriesByUserGroup(group);
+        final List<Operation> operations = operationsService.findOperationsByUserGroup(group);
 
         model.addAttribute("group", group); 
         model.addAttribute("users", users); 
         model.addAttribute("accounts", accounts); 
         model.addAttribute("debts", debts); 
-        model.addAttribute("categories", categories); 
+        model.addAttribute("categories", categories);
+        model.addAttribute("operations", operations); 
 
         return "user_group";
     }

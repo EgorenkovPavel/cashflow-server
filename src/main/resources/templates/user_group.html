@@ -90,6 +90,35 @@
         </tbody>
     </table>
 
+    <h3>Операции</h3>
+
+    <a th:href="@{/operations/new(groupId=${group.id})}">Добавить новую операцию</a>
+    
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Дата</th>
+                <th>Тип</th>
+                <th>Счет</th>
+                <th>Аналитика</th>
+                <th>Сумма</th>
+                <th>Пользователь</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="operation : ${operations}">
+                <td th:text="${operation.id}"></td>
+                <td th:text="${operation.date}"></td>
+                <td th:text="${operation.type}"></td>
+                <td th:text="${operation.account.name}"></td>
+                <td th:text="${operation.type}"></td>
+                <td th:text="${operation.sum}"></td>
+                <td th:text="${operation.user.name}"></td>
+            </tr>
+        </tbody>
+    </table>
+
 </body>
 
 </html>

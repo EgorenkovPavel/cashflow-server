@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавить новую категорию</title>
+</head>
+<body>
+    <h1>Добавить новую категорию</h1>
+
+    <form action="/operations/add" method="post" th:object="${operationForm}">
+        <!-- Имя группы -->
+        <label for="date">Выберите дату:</label>
+        <input type="datetime-local" id="date" name="date" th:field="*{date}">
+        <br/>
+
+        <label>
+            <input type="radio" name="type" value="INPUT" th:field="*{type}">
+            Доход
+        </label>
+        <label>
+            <input type="radio" name="type" value="OUTPUT" th:field="*{type}">
+            Расход
+        </label>
+        <label>
+            <input type="radio" name="type" value="TRANSFER" th:field="*{type}">
+            Перевод
+        </label>
+        <br/>
+        
+        <label for="account">Счет:</label>
+        <select id="account" th:field="*{account}">
+            <option value="" disabled selected>Выберите счет</option>
+            <option th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.name}"></option>
+        </select>
+        <br/>
+
+        <label for="category">Категория:</label>
+        <select id="category" th:field="*{category}">
+            <option value="" disabled selected>Выберите категорию</option>
+            <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}"></option>
+        </select>
+        <br/>
+
+        <label for="recAccount">Счет получатель:</label>
+        <select id="recAccount" th:field="*{recAccount}">
+            <option value="" disabled selected>Выберите счет</option>
+            <option th:each="account : ${recAccounts}" th:value="${account.id}" th:text="${account.name}"></option>
+        </select>
+        <br/>        
+
+        <label for="sum">Введите сумму:</label>
+        <input type="number" id="sum" name="sum" th:field="*{sum}" step="1" min="0">
+        <br/>
+
+        <label th:text="'Имя группы ' + ${group.name}">Имя группы:</label>
+        <input type="hidden" th:field="*{userGroup.id}" th:value="${group.id}" />
+        <br/>
+
+        <label for="user">Пользователь:</label>
+        <select id="user" th:field="*{user}">
+            <option value="" disabled selected>Выберите пользователя</option>
+            <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.name}"></option>
+        </select>
+        <br/>
+
+        <button type="submit">Добавить</button>
+    </form>
+
+    <a href="#" onclick="window.history.back(); return false;">Назад</a>
+</body>
+</html>

@@ -1,6 +1,7 @@
 package ru.cashflow.cashflow.domain.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -35,6 +36,10 @@ public class CategoryService {
 
     public void saveCategory(Category category){
         categoryRepository.save(categoryMapper.toDBO(category));
+    }
+
+    public Optional<Category> findCategoryById(long id) {
+        return categoryRepository.findById(id).map(category -> categoryMapper.toModel(category));
     }
 
 }

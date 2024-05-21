@@ -1,6 +1,5 @@
 package ru.cashflow.cashflow.api.controllers;
 
-import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,11 +7,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ru.cashflow.cashflow.domain.models.Account;
 import ru.cashflow.cashflow.domain.models.Category;
-import ru.cashflow.cashflow.domain.models.User;
 import ru.cashflow.cashflow.domain.models.UserGroup;
-import ru.cashflow.cashflow.domain.services.AccountService;
 import ru.cashflow.cashflow.domain.services.CategoryService;
 import ru.cashflow.cashflow.domain.services.UserService;
 

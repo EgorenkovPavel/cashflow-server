@@ -1,6 +1,7 @@
 package ru.cashflow.cashflow.domain.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,6 @@ import ru.cashflow.cashflow.domain.models.UserGroup;
 public class AccountService {
     
     private final AccountRepository accountRepository;
-    private final UserMapper userMapper;
     private final UserGroupMapper groupMapper;
     private final AccountMapper accountMapper;
 
@@ -26,7 +26,6 @@ public class AccountService {
         UserGroupMapper groupMapper, 
         AccountMapper accountMapper) {
         this.accountRepository = accountRepository;
-        this.userMapper = userMapper;
         this.groupMapper = groupMapper;
         this.accountMapper = accountMapper;
     }
@@ -43,6 +42,10 @@ public class AccountService {
         .stream()
         .map(account -> accountMapper.toModel(account))
         .toList();
+    }
+
+    public Optional<Account> findAccountById(Long id){
+        return accountRepository.findById(id).map(account -> accountMapper.toModel(account));
     }
 
 
