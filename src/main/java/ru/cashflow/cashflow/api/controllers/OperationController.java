@@ -69,4 +69,15 @@ public class OperationController {
         return "redirect:/group/" + operation.getUserGroup().getId();
     }
 
+    @GetMapping("operations/delete")
+    public String deleteOperation(
+        @RequestParam("id") String operationId) {
+        
+        final Operation operation = operationService.findOperationById(Long.parseLong(operationId)).orElse(null);
+
+        operationService.deleteOperation(operation);
+
+        return "redirect:/group/" + operation.getUserGroup().getId();
+    }
+
 }

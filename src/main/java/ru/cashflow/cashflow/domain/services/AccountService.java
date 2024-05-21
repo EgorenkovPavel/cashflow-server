@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import ru.cashflow.cashflow.data.repos.AccountRepository;
+import ru.cashflow.cashflow.data.repos.BalanceRepository;
 import ru.cashflow.cashflow.domain.mappers.AccountMapper;
 import ru.cashflow.cashflow.domain.mappers.UserGroupMapper;
 import ru.cashflow.cashflow.domain.mappers.UserMapper;
@@ -16,6 +17,7 @@ import ru.cashflow.cashflow.domain.models.UserGroup;
 public class AccountService {
     
     private final AccountRepository accountRepository;
+    private final BalanceRepository balanceRepository;
     private final UserGroupMapper groupMapper;
     private final AccountMapper accountMapper;
 
@@ -24,8 +26,10 @@ public class AccountService {
         AccountRepository accountRepository, 
         UserMapper userMapper, 
         UserGroupMapper groupMapper, 
-        AccountMapper accountMapper) {
+        AccountMapper accountMapper, 
+        BalanceRepository balanceRepository) {
         this.accountRepository = accountRepository;
+        this.balanceRepository = balanceRepository;
         this.groupMapper = groupMapper;
         this.accountMapper = accountMapper;
     }
@@ -51,6 +55,10 @@ public class AccountService {
 
     public void saveAccount(Account account){
         accountRepository.save(accountMapper.toDBO(account));
+    }
+
+    public int getBalance(Long accountId){
+        return balanceRepository.getAccountBalance(accountId).orElse(0);
     }
 
 }

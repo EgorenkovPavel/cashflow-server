@@ -1,5 +1,7 @@
 package ru.cashflow.cashflow.api.controllers;
 
+import ru.cashflow.cashflow.api.models.AccountTableItem;
+import ru.cashflow.cashflow.api.models.OperationTableItem;
 import ru.cashflow.cashflow.domain.models.Account;
 import ru.cashflow.cashflow.domain.models.Category;
 import ru.cashflow.cashflow.domain.models.Operation;
@@ -19,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
 @Controller
 public class UserGroupController {
 
@@ -29,10 +30,10 @@ public class UserGroupController {
     private final OperationService operationsService;
 
     public UserGroupController(
-        UserService userService, 
-        AccountService accountService, 
-        CategoryService categoryService, 
-        OperationService operationsService) {
+            UserService userService,
+            AccountService accountService,
+            CategoryService categoryService,
+            OperationService operationsService) {
         this.userService = userService;
         this.accountService = accountService;
         this.categoryService = categoryService;
@@ -43,38 +44,51 @@ public class UserGroupController {
     public String viewGroups(Model model) {
         final List<UserGroup> groups = userService.findAllGroups();
         model.addAttribute("groups", groups);
-        return "user_group_list";  
+        return "user_group_list";
     }
 
     @GetMapping("/user-groups/new")
     public String newGroupForm(Model model) {
         model.addAttribute("groupForm", new UserGroup());
-        return "user_group_new";  
+        return "user_group_new";
     }
 
     @PostMapping("/user-groups/add")
     public String addGroup(@ModelAttribute("groupForm") UserGroup group) {
-        userService.saveGroup(group);  
-        return "redirect:/user-group_list";  
+        userService.saveGroup(group);
+        return "redirect:/user-group_list";
     }
 
     @GetMapping("/group/{groupId}")
     public String getGroup(@PathVariable("groupId") Long groupId, Model model) {
         final UserGroup group = userService.findUserGroupById(groupId).orElse(null);
         final List<User> users = userService.findUsersByGroup(group);
-        final List<Account> accounts = accountService.findAccountsByUserGroup(group, false);
-        final List<Account> debts = accountService.findAccountsByUserGroup(group, true);
+        final List<AccountTableItem> accounts = accountService.findAccountsByUserGroup(group, false)
+                .stream()
+                .map(account -> AccountTableItem.fromAccount(
+                        account,
+                        accountService.getBalance(account.getId())))
+                .toList();
+        final List<AccountTableItem> debts = accountService.findAccountsByUserGroup(group, true)
+                .stream()
+                .map(account -> AccountTableItem.fromAccount(
+                        account,
+                        accountService.getBalance(account.getId())))
+                .toList();
         final List<Category> categories = categoryService.findCategoriesByUserGroup(group);
-        final List<Operation> operations = operationsService.findOperationsByUserGroup(group);
+        final List<OperationTableItem> operations = operationsService.findOperationsByUserGroup(group)
+                .stream()
+                .map(operation -> OperationTableItem.fromOperation(operation))
+                .toList();
 
-        model.addAttribute("group", group); 
-        model.addAttribute("users", users); 
-        model.addAttribute("accounts", accounts); 
-        model.addAttribute("debts", debts); 
+        model.addAttribute("group", group);
+        model.addAttribute("users", users);
+        model.addAttribute("accounts", accounts);
+        model.addAttribute("debts", debts);
         model.addAttribute("categories", categories);
-        model.addAttribute("operations", operations); 
+        model.addAttribute("operations", operations);
 
         return "user_group";
     }
-    
+
 }

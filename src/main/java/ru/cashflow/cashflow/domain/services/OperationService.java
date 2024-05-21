@@ -1,6 +1,7 @@
 package ru.cashflow.cashflow.domain.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,6 +44,11 @@ public class OperationService {
                 .stream()
                 .map(operation -> operationMapper.toModel(operation))
                 .toList();
+    }
+
+    public Optional<Operation> findOperationById(Long id) {
+        return operationRepository.findById(id)
+                .map(operation -> operationMapper.toModel(operation));
     }
 
     @Transactional

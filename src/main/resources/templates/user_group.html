@@ -27,58 +27,71 @@
         </tbody>
     </table>
 
-    <h3>Счета</h3>
+    <div style="padding-top: 20px; padding-bottom: 10px;">
+        <h3 style="display: inline;">Счета</h3>
 
-    <a th:href="@{/accounts/new(groupId=${group.id})}">Добавить новый счет</a>
-    
+        <a th:href="@{/accounts/new(groupId=${group.id})}" style="display: inline;">Добавить</a>
+    </div>
     <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
                 <th>Пользователь</th>
+                <th>Баланс</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="account : ${accounts}">
                 <td th:text="${account.id}"></td>
                 <td th:text="${account.name}"></td>
-                <td th:text="${account.user.name}"></td>
+                <td th:text="${account.user}"></td>
+                <td th:text="${account.balance}"></td>
+                <td><a th:href="@{/accounts/edit(id=${account.id})}">Изменить</a></td>
             </tr>
         </tbody>
     </table>
 
-    <h3>Долги</h3>
+    <div style="padding-top: 20px; padding-bottom: 10px;">
+        <h3 style="display: inline;">Долги</h3>
 
-    <a th:href="@{/accounts/new(groupId=${group.id})}">Добавить новый счет</a>
-    
+        <a th:href="@{/accounts/new(groupId=${group.id})}" style="display: inline;">Добавить</a>
+    </div>
     <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
                 <th>Пользователь</th>
+                <th>Баланс</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="debt : ${debts}">
                 <td th:text="${debt.id}"></td>
                 <td th:text="${debt.name}"></td>
-                <td th:text="${debt.user.name}"></td>
+                <td th:text="${debt.user}"></td>
+                <td th:text="${debt.balance}"></td>
+                <td><a th:href="@{/accounts/edit(id=${debt.id})}">Изменить</a></td>
             </tr>
         </tbody>
     </table>
 
-    <h3>Категории</h3>
+    <div style="padding-top: 20px; padding-bottom: 10px;">
+        <h3 style="display: inline;">Категории</h3>
 
-    <a th:href="@{/categories/new(groupId=${group.id})}">Добавить новую категорию</a>
-    
+        <a th:href="@{/categories/new(groupId=${group.id})}" style="display: inline;">Добавить</a>
+    </div>
+
     <table border="1">
         <thead>
             <tr>
                 <th>ID</th>
                 <th>Имя</th>
                 <th>Тип</th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -86,14 +99,17 @@
                 <td th:text="${category.id}"></td>
                 <td th:text="${category.name}"></td>
                 <td th:text="${category.type}"></td>
+                <td><a th:href="@{/categories/edit(id=${category.id})}">Изменить</a></td>
             </tr>
         </tbody>
     </table>
 
-    <h3>Операции</h3>
+    <div style="padding-top: 20px; padding-bottom: 10px;">
+        <h3 style="display: inline;">Операции</h3>
 
-    <a th:href="@{/operations/new(groupId=${group.id})}">Добавить новую операцию</a>
-    
+        <a th:href="@{/operations/new(groupId=${group.id})}" style="display: inline;">Добавить</a>
+    </div>
+
     <table border="1">
         <thead>
             <tr>
@@ -104,6 +120,8 @@
                 <th>Аналитика</th>
                 <th>Сумма</th>
                 <th>Пользователь</th>
+                <th></th>
+                <th></th>
             </tr>
         </thead>
         <tbody>
@@ -111,10 +129,13 @@
                 <td th:text="${operation.id}"></td>
                 <td th:text="${operation.date}"></td>
                 <td th:text="${operation.type}"></td>
-                <td th:text="${operation.account.name}"></td>
-                <td th:text="${operation.type}"></td>
+                <td th:text="${operation.account}"></td>
+                <td th:text="${operation.analytic}"></td>
                 <td th:text="${operation.sum}"></td>
-                <td th:text="${operation.user.name}"></td>
+                <td th:text="${operation.user}"></td>
+                <td><a th:href="@{/operations/edit(id=${operation.id})}">Изменить</a></td>
+                <td><a th:href="@{/operations/delete(id=${operation.id})}"
+                        th:onclick="return confirm('Are you sure you want to delete this item?');">Удалить</a></td>
             </tr>
         </tbody>
     </table>
