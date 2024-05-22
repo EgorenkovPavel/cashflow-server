@@ -19,6 +19,7 @@ public class UserMapper implements DBOMapper<User, UserDbo> {
         return new UserDbo(
             user.getId(), 
             user.getName(), 
+            user.getPassword(),
             user.getEmail(), 
             userGroupMapper.toDBO(user.getGroup()));
     }
@@ -28,6 +29,7 @@ public class UserMapper implements DBOMapper<User, UserDbo> {
         return new User(
             user.getId(),
             user.getName(), 
+            user.getPassword(),
             user.getEmail(), 
             userGroupMapper.toModel(user.getGroup()));
     }

@@ -25,6 +25,9 @@ public class UserDbo {
     private final String name;
 
     @Column(nullable = false)
+    private final String password;
+
+    @Column(nullable = false)
     private final String email;
 
     @ManyToOne

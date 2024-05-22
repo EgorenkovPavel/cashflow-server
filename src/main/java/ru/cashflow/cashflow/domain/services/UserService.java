@@ -3,6 +3,7 @@ package ru.cashflow.cashflow.domain.services;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 
 import ru.cashflow.cashflow.data.repos.UserGroupRepository;
@@ -66,5 +67,28 @@ public class UserService {
 
     public Optional<User> findUserById(Long id){
         return userRepository.findById(id).map(user -> userMapper.toModel(user));
+    }
+
+    public Optional<User> findUserByName(String name){
+        return userRepository.findByName(name).map(user -> userMapper.toModel(user));
+    }
+
+    public User saveOrUpdateUser(OAuth2User oAuth2User) {
+        String email = oAuth2User.getAttribute("email");
+        Optional<User> existingUser = userRepository.findByEmail(email).map(user -> userMapper.toModel(user));
+
+        User userEntity;
+        if (existingUser.isPresent()) {
+            userEntity = existingUser.get();
+            // Обновление информации пользователя
+            userEntity.setName(oAuth2User.getAttribute("name"));
+        } else {
+            userEntity = new User();
+            userEntity.setEmail(email);
+            userEntity.setName(oAuth2User.getAttribute("name"));
+            // Установка дополнительных полей по необходимости
+        }
+
+        return userMapper.toModel(userRepository.save(userMapper.toDBO(userEntity)));
     }
 }

@@ -1,16 +1,4 @@
-package ru.cashflow.cashflow.api.controllers;
-
-import ru.cashflow.cashflow.api.models.AccountTableItem;
-import ru.cashflow.cashflow.api.models.OperationTableItem;
-import ru.cashflow.cashflow.domain.models.Account;
-import ru.cashflow.cashflow.domain.models.Category;
-import ru.cashflow.cashflow.domain.models.Operation;
-import ru.cashflow.cashflow.domain.models.User;
-import ru.cashflow.cashflow.domain.models.UserGroup;
-import ru.cashflow.cashflow.domain.services.AccountService;
-import ru.cashflow.cashflow.domain.services.CategoryService;
-import ru.cashflow.cashflow.domain.services.OperationService;
-import ru.cashflow.cashflow.domain.services.UserService;
+package ru.cashflow.cashflow.web.controllers;
 
 import java.util.List;
 
@@ -20,6 +8,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import ru.cashflow.cashflow.domain.models.Category;
+import ru.cashflow.cashflow.domain.models.User;
+import ru.cashflow.cashflow.domain.models.UserGroup;
+import ru.cashflow.cashflow.domain.services.AccountService;
+import ru.cashflow.cashflow.domain.services.CategoryService;
+import ru.cashflow.cashflow.domain.services.OperationService;
+import ru.cashflow.cashflow.domain.services.UserService;
+import ru.cashflow.cashflow.web.models.AccountTableItem;
+import ru.cashflow.cashflow.web.models.OperationTableItem;
 
 @Controller
 public class UserGroupController {

@@ -1,4 +1,4 @@
-package ru.cashflow.cashflow.api.controllers;
+package ru.cashflow.cashflow.web.controllers;
 
 import java.util.List;
 import java.util.Map;

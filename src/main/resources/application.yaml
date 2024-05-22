@@ -10,5 +10,14 @@ spring:
         show-sql: true
         hibernate:
             ddl-auto: update
+    security:
+        oauth2:
+            client:
+                registration:
+                    google:
+                        client-id: 764112372488-v1lnn2ug5hreth8ifaj00tqa5cc2cuiu.apps.googleusercontent.com
+                        client-secret: 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
+                        scope: email,profile
+                        redirect-uri: http://localhost:8081/login/oauth2/code/google
 server:
   port : 8081

@@ -1,4 +1,4 @@
-package ru.cashflow.cashflow.api.models;
+package ru.cashflow.cashflow.web.models;
 
 import java.time.LocalDateTime;
 
