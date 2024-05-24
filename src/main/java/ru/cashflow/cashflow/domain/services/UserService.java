@@ -73,6 +73,10 @@ public class UserService {
         return userRepository.findByName(name).map(user -> userMapper.toModel(user));
     }
 
+    public Optional<User> findUserByEmail(String email){
+        return userRepository.findByEmail(email).map(user -> userMapper.toModel(user));
+    }
+
     public User saveOrUpdateUser(OAuth2User oAuth2User) {
         String email = oAuth2User.getAttribute("email");
         Optional<User> existingUser = userRepository.findByEmail(email).map(user -> userMapper.toModel(user));
